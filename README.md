@@ -23,13 +23,13 @@ Users input a decision problem (e.g., career change, business vs. job) along wit
 - A structured Pros & Cons matrix
 - A probability/confidence score for each option
 
-AI analysis is performed by **Google Gemini** (`gemini-2.5-pro` or `gemini-2.5-flash` depending on latency/cost needs), called from the Express backend.
+AI analysis is performed by **Google Gemini** (`gemini-3.5-flash` depending on latency/cost needs), called from the Express backend.
 
 ### 2.2 Legal & Bureaucracy Navigator
 Users describe a bureaucratic or legal problem (e.g., a lost land deed, trade license registration). The system returns a step-by-step guide in plain language: which office to visit, required fees, and which forms to complete.
 
 ### 2.3 Real-Time Crisis Support (Emergency Action Plan)
-An SOS button triggers an immediate structured checklist for medical emergencies, cybercrime (account hacks, blackmail), or financial fraud, along with contact numbers for relevant local support organizations.
+An SOS button triggers an immediate structured checklist for medical emergencies, cybercrime (account hacks, blackmail,), or financial fraud, along with contact numbers for relevant local support organizations.
 
 ### 2.4 Verified Expert Panel (Human-in-the-Loop)
 Certified professionals — lawyers, career counselors, psychologists, financial planners — are available for direct chat or video consultation, either free (time-limited) or via a paid session.
@@ -557,5 +557,6 @@ jobs:
 - Data retention policy for crisis reports containing sensitive personal information?
 - Backend hosting target for the Express/Docker service: Render, Railway, Fly.io, or a self-managed VPS?
 - Gemini model choice per module: `gemini-2.5-pro` (higher quality, higher latency/cost) vs. `gemini-2.5-flash` (faster, cheaper) — likely pro for Decision Matrix/Legal Navigator, flash for Crisis Support where speed matters most.
-#   s a m a d h a n - c l i e n t  
+#   s a m a d h a n - c l i e n t 
+ 
  
