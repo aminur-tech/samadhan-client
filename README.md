@@ -281,7 +281,7 @@ Because Prisma connects to Postgres with a privileged role (bypassing Supabase R
 
 All Gemini calls happen **exclusively in the Express backend** (`services/gemini.service.ts`) — the API key must never reach the frontend bundle.
 
-```typescript
+
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
@@ -338,7 +338,7 @@ EXPOSE 4000
 CMD ["node", "dist/server.js"]
 ```
 
-### 10.2 Frontend Dockerfile (CI validation)
+
 ```dockerfile
 # apps/web/Dockerfile
 FROM node:20-alpine AS base
@@ -362,7 +362,7 @@ EXPOSE 3000
 CMD ["node", "server.js"]
 ```
 
-### 10.3 `docker-compose.yml` (local development)
+
 ```yaml
 services:
   api:
@@ -401,87 +401,6 @@ volumes:
 
 ---
 
-## 11. CI/CD Pipeline
-
-```yaml
-# .github/workflows/ci-cd.yml
-name: CI/CD
-
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-
-jobs:
-  quality:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run type-check
-      - run: npm run test
-
-  prisma-migrate-check:
-    needs: quality
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: npm ci --prefix apps/api
-      - name: Validate migrations (no drift)
-        run: npx prisma migrate diff --from-migrations ./apps/api/prisma/migrations --to-schema-datamodel ./apps/api/prisma/schema.prisma --exit-code
-        working-directory: apps/api
-
-  docker-build:
-    needs: [quality, prisma-migrate-check]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build API image
-        run: docker build -f apps/api/Dockerfile -t samadhan-api:${{ github.sha }} .
-      - name: Build Web image (validation only)
-        run: docker build -f apps/web/Dockerfile -t samadhan-web:${{ github.sha }} .
-
-  deploy-frontend:
-    needs: docker-build
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy web to Vercel
-        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes --cwd apps/web
-
-  deploy-backend:
-    needs: docker-build
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Prisma migrate deploy
-        run: npx prisma migrate deploy
-        working-directory: apps/api
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DIRECT_URL: ${{ secrets.DIRECT_URL }}
-      - name: Push & deploy API image
-        run: |
-          echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login -u "${{ secrets.REGISTRY_USER }}" --password-stdin ${{ secrets.REGISTRY_URL }}
-          docker tag samadhan-api:${{ github.sha }} ${{ secrets.REGISTRY_URL }}/samadhan-api:latest
-          docker push ${{ secrets.REGISTRY_URL }}/samadhan-api:latest
-          # trigger redeploy on chosen host (Render/Railway/Fly.io deploy hook, or SSH + docker pull on a VPS)
-```
-
-**Notes:**
-- `prisma-migrate-check` catches schema drift between the committed migrations folder and `schema.prisma` before it reaches production.
-- `deploy-backend` runs `prisma migrate deploy` **before** pushing the new API image, so the running application version always matches the applied schema.
-- The backend's production host is intentionally left generic (Render/Railway/Fly.io/VPS) since Vercel is not used for the Express server; swap the final push/deploy step for the target platform's CLI or deploy hook.
-
----
 
 ## 12. Deployment
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Compass, Eye, EyeOff, Loader2, ArrowRight, Lock, Mail } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+ import { setCookie } from "cookies-next"; // or document.cookie directly
 
 
 export default function LoginPage() {
@@ -31,13 +32,16 @@ export default function LoginPage() {
         throw authError;
       }
 
+     
+
       if (data.session) {
-        // Save token for HomeNavbar check
+        // Store token in cookies so Middleware can read it
+        document.cookie = `token=${data.session.access_token}; path=/; max-age=${data.session.expires_in}; SameSite=Lax;`;
+
+        // Keep localStorage if your RTK Query/Auth state needs it
         localStorage.setItem("token", data.session.access_token);
 
-        // Notify navbar of state change
         window.dispatchEvent(new Event("auth-change"));
-
         router.push("/dashboard");
       }
     } catch (err: unknown) {

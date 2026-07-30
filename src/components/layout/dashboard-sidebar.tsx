@@ -14,10 +14,10 @@ import {
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Decision Matrix", href: "/decisions", icon: Compass },
-  { label: "Legal Navigator", href: "/legal", icon: Scale },
-  { label: "Crisis Support", href: "/crisis", icon: AlertTriangle },
-  { label: "Expert Panel", href: "/experts", icon: Users },
+  { label: "Decision Matrix", href: "/dashboard/decisions", icon: Compass },
+  { label: "Legal Navigator", href: "/dashboard/legal", icon: Scale },
+  { label: "Crisis Support", href: "/dashboard/crisis", icon: AlertTriangle },
+  { label: "Expert Panel", href: "/dashboard/experts", icon: Users },
 ];
 
 export function DashboardSidebar() {
