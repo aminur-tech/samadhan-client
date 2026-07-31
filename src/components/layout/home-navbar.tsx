@@ -77,16 +77,16 @@ export function HomeNavbar() {
             Features
           </Link>
 
+
           <Link
-            href="#experts"
+            href="/dashboard/resume-matcher"
             className="rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
           >
-            Experts
+           Resume Matcher
           </Link>
-
           {/* SOS Crisis Badge */}
           <Link
-            href="/crisis"
+            href="/dashboard/crisis"
             className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-xs font-semibold text-red-600 transition-all hover:border-red-500/50 hover:bg-red-500/20 hover:shadow-lg hover:shadow-red-500/10 dark:text-red-400"
           >
             <span className="relative flex h-2 w-2">
