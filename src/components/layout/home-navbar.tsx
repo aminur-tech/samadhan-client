@@ -12,7 +12,6 @@ import {
   LayoutDashboard,
   LogIn,
   UserPlus,
-  Sparkles,
 } from "lucide-react";
 
 export function HomeNavbar() {
@@ -54,7 +53,7 @@ export function HomeNavbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/70 backdrop-blur-xl transition-all duration-300">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="section-shell flex h-16 items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="group flex items-center gap-3">
           <div className="relative flex h-10 w-10 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:border-primary/40 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-md group-hover:shadow-primary/20">
