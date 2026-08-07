@@ -64,6 +64,9 @@ export function HomeNavbar() {
             <span className="text-xl font-black tracking-tight bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent">
               Samadhan
             </span>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+              calm AI guidance
+            </span>
           </div>
         </Link>
 

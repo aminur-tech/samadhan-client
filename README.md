@@ -33,6 +33,8 @@ An SOS button triggers an immediate structured checklist for medical emergencies
 
 ### 2.4 Verified Expert Panel (Human-in-the-Loop)
 Certified professionals — lawyers, career counselors, psychologists, financial planners — are available for direct chat or video consultation, either free (time-limited) or via a paid session.
+### 2.5 Resume matcher and update 100% matcher
+
 
 ---
 

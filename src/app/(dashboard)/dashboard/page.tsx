@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { useGetDecisionsQuery } from "@/store/api/decisionsApi";
 import { useGetLegalCasesQuery } from "@/store/api/legalApi";
 import { useGetCrisisReportsQuery } from "@/store/api/crisisApi";
@@ -47,13 +48,14 @@ const priorities = [
 ];
 
 export default function DashboardPage() {
+  const shouldReduceMotion = useReducedMotion();
   const { data: decisions, isLoading: isLoadingDecisions } = useGetDecisionsQuery(undefined);
   const { data: legalCases, isLoading: isLoadingLegal } = useGetLegalCasesQuery(undefined);
   const { data: crisisReports, isLoading: isLoadingCrisis } = useGetCrisisReportsQuery(undefined);
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6">
-      <section className="surface-card overflow-hidden p-6 sm:p-8">
+      <motion.section className="surface-card overflow-hidden p-6 sm:p-8" initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }} animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-4">
             <div className="chip">
@@ -71,17 +73,17 @@ export default function DashboardPage() {
           </div>
           <Link
             href="/dashboard/decisions"
-            className="focus-ring inline-flex items-center gap-2 rounded-[12px] bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_12px_32px_-12px_rgba(79,70,229,0.55)] transition-all duration-200 hover:-translate-y-0.5"
+            className="focus-ring inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_12px_32px_-12px_rgba(79,70,229,0.55)] transition-all duration-200 hover:-translate-y-0.5"
           >
             <Plus className="h-4 w-4" />
             New decision
           </Link>
         </div>
-      </section>
+      </motion.section>
 
       <div className="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="surface-card p-6">
+          <motion.div className="surface-card p-6" initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }} animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">Decisions</p>
               <div className="rounded-2xl bg-primary/10 p-2 text-primary">
@@ -95,9 +97,9 @@ export default function DashboardPage() {
               <TrendingUp className="h-4 w-4" />
               +12% this month
             </div>
-          </div>
+          </motion.div>
 
-          <div className="surface-card p-6">
+          <motion.div className="surface-card p-6" initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }} animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">Legal cases</p>
               <div className="rounded-2xl bg-primary/10 p-2 text-primary">
@@ -111,9 +113,9 @@ export default function DashboardPage() {
               <TrendingUp className="h-4 w-4" />
               +5% this month
             </div>
-          </div>
+          </motion.div>
 
-          <div className="surface-card border-red-200/70 bg-red-500/[0.04] p-6 dark:border-red-900/50">
+          <motion.div className="surface-card border-red-200/70 bg-red-500/4 p-6 dark:border-red-900/50" initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }} animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }}>
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-red-500">Crisis logs</p>
               <div className="rounded-2xl bg-red-500/10 p-2 text-red-500">
@@ -127,10 +129,10 @@ export default function DashboardPage() {
               <AlertCircle className="h-4 w-4" />
               Action required
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="surface-card p-6">
+        <motion.div className="surface-card p-6" initial={shouldReduceMotion ? false : { opacity: 0, x: 18 }} animate={shouldReduceMotion ? {} : { opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.1 }}>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold text-foreground">Quick actions</p>
@@ -154,11 +156,11 @@ export default function DashboardPage() {
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-        <section className="surface-card p-6">
+        <motion.section className="surface-card p-6" initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }} animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.12 }}>
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-foreground">Activity trends</h2>
@@ -199,9 +201,9 @@ export default function DashboardPage() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="surface-card p-6">
+        <motion.section className="surface-card p-6" initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }} animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.16 }}>
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-foreground">Recent activity</h2>
@@ -219,17 +221,17 @@ export default function DashboardPage() {
               </div>
             ))}
           </div>
-        </section>
+        </motion.section>
       </div>
 
-      <section className="surface-card p-6">
+      <motion.section className="surface-card p-6" initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }} animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.2 }}>
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold text-foreground">Open priorities</h2>
             <p className="text-sm text-muted-foreground">A concise view of pending follow-ups</p>
           </div>
         </div>
-        <div className="mt-6 overflow-hidden rounded-[16px] border border-border/80">
+        <div className="mt-6 overflow-hidden rounded-2xl border border-border/80">
           <table className="min-w-full divide-y divide-border/80 text-sm">
             <thead className="bg-muted/50 text-left text-muted-foreground">
               <tr>
@@ -253,7 +255,7 @@ export default function DashboardPage() {
             </tbody>
           </table>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }
